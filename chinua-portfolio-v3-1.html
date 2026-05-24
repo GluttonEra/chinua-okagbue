@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Chinua Okagbue · AI Evaluation & Frontend QA Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:        #090a0f;
+  --bg-1:      #0f1117;
+  --bg-2:      #13151c;
+  --bg-3:      #1a1d26;
+  --border:    #1e2130;
+  --border-2:  #2a2e3d;
+  --text:      #edf2f7;
+  --text-2:    #94a3b8;
+  --text-3:    #4a5568;
+  --accent:    #3b82f6;
+  --accent-bg: rgba(59,130,246,.08);
+  --accent-brd:rgba(59,130,246,.22);
+  --green:     #10b981;
+  --amber:     #f59e0b;
+  --red:       #ef4444;
+  --r:         8px;
+  --font:      'Inter', system-ui, sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg-1)}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:4px}
+
+/* ── NAV ── */
+.navbar{
+  position:sticky;top:0;z-index:200;
+  background:rgba(9,10,15,.88);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  height:56px;display:flex;align-items:center;
+  transition:border-color .25s;
+}
+.navbar.scrolled{border-color:var(--border-2)}
+.nav-inner{
+  max-width:1200px;margin:0 auto;width:100%;
+  padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-size:14.5px;font-weight:700;color:var(--text);
+  letter-spacing:-.02em;text-decoration:none;
+  display:flex;align-items:center;gap:9px;
+}
+.nav-logo-status{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 7px var(--green);
+  animation:blink 2.8s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}55%{opacity:.3}}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{
+  font-size:13px;font-weight:500;color:var(--text-2);
+  text-decoration:none;padding:5px 12px;border-radius:6px;
+  transition:color .15s,background .15s;
+}
+.nav-links a:hover{color:var(--text);background:var(--bg-2)}
+.nav-cta{
+  font-size:13px;font-weight:500;color:var(--accent);
+  text-decoration:none;padding:5px 14px;border-radius:6px;
+  border:1px solid var(--accent-brd);background:var(--accent-bg);
+  transition:all .15s;margin-left:6px;
+}
+.nav-cta:hover{background:rgba(59,130,246,.14)}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:19px;height:1.5px;background:var(--text-2);transition:.2s;border-radius:1px}
+
+/* ── DRAWER ── */
+.drawer{
+  position:fixed;top:56px;right:-260px;
+  width:240px;height:calc(100vh - 56px);
+  background:var(--bg-1);border-left:1px solid var(--border-2);
+  z-index:199;padding:18px 14px;transition:right .24s ease;
+}
+.drawer.open{right:0}
+.drawer ul{list-style:none;display:flex;flex-direction:column;gap:2px}
+.drawer ul a{
+  display:block;padding:10px 12px;border-radius:6px;
+  font-size:13.5px;color:var(--text-2);text-decoration:none;
+  transition:background .15s,color .15s;
+}
+.drawer ul a:hover{background:var(--bg-3);color:var(--text)}
+
+/* ── LAYOUT ── */
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+section{padding:84px 0}
+section+section{border-top:1px solid var(--border)}
+
+.sec-tag{
+  font-size:11px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.sec-tag::before{content:'//';opacity:.45;font-size:10px;letter-spacing:0}
+h2.sec-title{
+  font-size:24px;font-weight:700;letter-spacing:-.025em;color:var(--text);
+  margin-bottom:6px;
+}
+p.sec-desc{
+  font-size:14px;color:var(--text-2);max-width:500px;
+  margin-bottom:40px;line-height:1.75;
+}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 20px;font-size:13.5px;font-weight:600;
+  border-radius:var(--r);cursor:pointer;text-decoration:none;
+  border:1px solid transparent;transition:all .15s;font-family:var(--font);
+}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#2563eb;box-shadow:0 0 18px rgba(59,130,246,.25)}
+.btn-secondary{
+  background:transparent;color:var(--text-2);border-color:var(--border-2);
+}
+.btn-secondary:hover{border-color:var(--border-2);color:var(--text);background:var(--bg-2)}
+
+/* ── HERO ── */
+#hero{
+  padding-top:130px;padding-bottom:90px;
+  border-top:none;position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 75% 65% at 50% 0,#000 30%,transparent 100%);
+}
+.hero-inner{max-width:720px;position:relative}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:500;letter-spacing:.02em;
+  color:var(--green);background:rgba(16,185,129,.08);
+  border:1px solid rgba(16,185,129,.22);border-radius:100px;
+  padding:5px 14px;margin-bottom:24px;
+}
+.hero-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--green);flex-shrink:0;
+}
+.hero-name{
+  font-size:clamp(38px,5.5vw,58px);font-weight:800;
+  letter-spacing:-.04em;line-height:1.06;
+  color:var(--text);margin-bottom:16px;
+}
+.hero-roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.hero-role-pill{
+  font-size:12.5px;font-weight:500;color:var(--text-2);
+  background:var(--bg-2);border:1px solid var(--border-2);
+  border-radius:6px;padding:5px 12px;
+}
+.hero-desc{
+  font-size:16px;color:var(--text-2);max-width:560px;
+  line-height:1.75;margin-bottom:32px;font-weight:400;
+}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+.hero-stats{
+  display:flex;gap:36px;flex-wrap:wrap;
+  padding-top:32px;border-top:1px solid var(--border);
+}
+.stat-item{display:flex;flex-direction:column}
+.stat-val{
+  font-size:26px;font-weight:700;color:var(--text);
+  letter-spacing:-.035em;line-height:1.1;
+}
+.stat-lbl{
+  font-size:11px;color:var(--text-3);text-transform:uppercase;
+  letter-spacing:.07em;margin-top:3px;
+}
+
+/* ── SKILLS ── */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;
+}
+.skill-card{
+  background:var(--bg-1);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px;
+  transition:border-color .2s,transform .2s;
+}
+.skill-card:hover{border-color:var(--border-2);transform:translateY(-2px)}
+.skill-icon{font-size:20px;margin-bottom:14px}
+.skill-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tags span{
+  font-size:11.5px;color:var(--text-2);
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:4px;padding:3px 9px;
+}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{
+  content:'';position:absolute;left:5px;top:10px;bottom:10px;
+  width:1px;background:var(--border);
+}
+.tl-item{position:relative;margin-bottom:40px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{
+  position:absolute;left:-24px;top:6px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);z-index:1;
+}
+.tl-dot::after{
+  content:'';position:absolute;inset:2px;
+  border-radius:50%;background:var(--accent);
+}
+.tl-period{
+  font-size:11px;color:var(--text-3);letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:4px;font-weight:500;
+}
+.tl-role{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:3px}
+.tl-org{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:10px}
+.tl-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tl-list li{
+  font-size:13.5px;color:var(--text-2);
+  padding-left:14px;position:relative;line-height:1.65;
+}
+.tl-list li::before{
+  content:'▹';position:absolute;left:0;
+  color:var(--accent);font-size:11px;top:2px;
+}
+
+/* ── EVALUATION SAMPLES ── */
+.tabs{display:flex;gap:4px;margin-bottom:28px;flex-wrap:wrap}
+.tab{
+  font-size:12.5px;font-weight:500;color:var(--text-3);
+  background:transparent;border:1px solid var(--border);
+  border-radius:6px;padding:7px 15px;cursor:pointer;
+  transition:all .15s;font-family:var(--font);letter-spacing:.01em;
+}
+.tab:hover{color:var(--text-2);border-color:var(--border-2)}
+.tab.active{
+  color:var(--accent);border-color:var(--accent-brd);
+  background:var(--accent-bg);
+}
+.samples-panel{display:none;flex-direction:column;gap:14px}
+.samples-panel.active{display:flex}
+
+.eval-card{
+  background:var(--bg-1);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+}
+.eval-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;background:var(--bg-2);border-bottom:1px solid var(--border);
+}
+.eval-task-lbl{
+  font-size:11px;font-weight:500;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.07em;
+}
+.eval-score{
+  font-size:11.5px;font-weight:700;
+  padding:3px 10px;border-radius:4px;
+}
+.s-pass{color:var(--green);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)}
+.s-warn{color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2)}
+.s-fail{color:var(--red);background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2)}
+.s-flag{color:var(--text-2);background:var(--bg-3);border:1px solid var(--border-2)}
+
+.eval-body{padding:20px}
+.eval-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px}
+.issues-label{
+  font-size:10.5px;font-weight:600;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.09em;margin-bottom:8px;
+}
+.issues-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.issues-list li{
+  display:flex;align-items:flex-start;gap:9px;
+  font-size:13px;color:var(--text-2);
+  background:var(--bg-2);border-radius:5px;padding:8px 10px;
+  border-left:2px solid var(--border-2);
+}
+.issues-list li.sev-h{border-color:var(--red)}
+.issues-list li.sev-m{border-color:var(--amber)}
+.issues-list li.sev-l{border-color:var(--text-3)}
+.sev{
+  font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;
+}
+.sev.h{color:var(--red);background:rgba(239,68,68,.12)}
+.sev.m{color:var(--amber);background:rgba(245,158,11,.12)}
+.sev.l{color:var(--text-3);background:rgba(255,255,255,.04)}
+.eval-summary{
+  font-size:13px;color:var(--text-2);line-height:1.7;
+  background:var(--bg-2);border:1px solid var(--border);
+  border-left:3px solid rgba(59,130,246,.4);
+  border-radius:0 5px 5px 0;padding:13px 15px;font-style:italic;
+}
+.eval-foot{
+  padding:11px 18px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;
+}
+.link-cta{
+  font-size:12px;font-weight:500;color:var(--accent);
+  text-decoration:none;display:inline-flex;align-items:center;gap:4px;
+  transition:gap .15s;
+}
+.link-cta:hover{gap:8px}
+
+/* ── PROJECTS ── */
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;
+}
+.proj-card{
+  background:var(--bg-1);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;transition:border-color .2s;
+}
+.proj-card:hover{border-color:var(--border-2)}
+.proj-thumb{
+  height:130px;
+  background:repeating-linear-gradient(
+    -45deg,var(--bg-2) 0,var(--bg-2) 1px,transparent 1px,transparent 14px
+  );
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;border-bottom:1px solid var(--border);position:relative;
+}
+.proj-thumb-tag{
+  position:absolute;top:10px;left:10px;
+  font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-3);background:var(--bg);border:1px solid var(--border-2);
+  border-radius:4px;padding:3px 8px;
+}
+.proj-body{padding:18px}
+.proj-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
+.proj-desc{font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:14px}
+
+/* ── WORKFLOW ── */
+.workflow{display:flex;flex-direction:column;gap:0;max-width:560px}
+.wf-step{display:flex;gap:20px;align-items:flex-start;position:relative}
+.wf-step:not(:last-child)::after{
+  content:'';position:absolute;left:13px;top:34px;bottom:-22px;
+  width:1px;background:var(--border);
+}
+.wf-n-wrap{flex-shrink:0;padding-bottom:28px}
+.wf-n{
+  width:26px;height:26px;border-radius:50%;
+  border:1px solid var(--border-2);background:var(--bg-1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;color:var(--text-3);
+  position:relative;z-index:1;
+}
+.wf-body{padding-bottom:26px}
+.wf-title{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:4px}
+.wf-desc{font-size:13.5px;color:var(--text-2);line-height:1.65}
+
+/* ── EDU + CERTS ── */
+.info-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.info-card{
+  background:var(--bg-1);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px;
+}
+.info-card-title{
+  font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.edu-degree{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:4px}
+.edu-sub{font-size:13px;color:var(--accent);margin-bottom:6px}
+.edu-period{font-size:11.5px;color:var(--text-3)}
+.edu-note{font-size:12.5px;color:var(--text-2);margin-top:10px;line-height:1.6}
+.cert-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.cert-item{display:flex;align-items:center;gap:12px}
+.cert-icon{
+  width:34px;height:34px;border-radius:7px;
+  background:rgba(59,130,246,.1);border:1px solid var(--accent-brd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.cert-name{font-size:13.5px;font-weight:600;color:var(--text)}
+.cert-issuer{font-size:11.5px;color:var(--text-3);margin-top:2px}
+
+/* ── CONTACT ── */
+#contact{border-bottom:none}
+.contact-box{
+  background:var(--bg-1);border:1px solid var(--border-2);
+  border-radius:16px;padding:48px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  max-width:640px;margin:0 auto;position:relative;overflow:hidden;
+}
+.contact-box::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(59,130,246,.06) 0%,transparent 70%);
+}
+.contact-title{
+  font-size:28px;font-weight:800;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:10px;position:relative;
+}
+.contact-sub{
+  font-size:14.5px;color:var(--text-2);max-width:440px;
+  line-height:1.75;margin-bottom:30px;position:relative;
+}
+.contact-links{
+  display:flex;flex-direction:column;gap:10px;
+  width:100%;max-width:360px;margin-bottom:24px;position:relative;
+}
+.contact-link{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:8px;
+  padding:12px 16px;text-decoration:none;color:var(--text-2);
+  transition:border-color .15s,color .15s;font-size:13.5px;
+}
+.contact-link:hover{border-color:var(--border-2);color:var(--text)}
+.cl-ico{color:var(--accent);font-size:14px;width:20px;text-align:center}
+.cl-meta{font-size:11px;color:var(--text-3);margin-left:auto;text-transform:uppercase;letter-spacing:.05em}
+.contact-location{
+  font-size:12px;color:var(--text-3);position:relative;
+  display:flex;align-items:center;gap:5px;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);padding:22px 28px;
+  text-align:center;
+}
+footer p{font-size:12px;color:var(--text-3)}
+
+/* ── ANIMATION ── */
+.fu{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.fu.in{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:760px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  #hero{padding-top:100px}
+  .hero-name{font-size:36px}
+  .hero-stats{gap:22px}
+  .info-grid{grid-template-columns:1fr}
+  section{padding:60px 0}
+  .container{padding:0 20px}
+  .contact-box{padding:32px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <span class="nav-logo-status"></span>
+      Chinua Okagbue
+    </a>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#samples">Evaluations</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </ul>
+    <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <ul>
+    <li><a href="#skills" class="dl">Skills</a></li>
+    <li><a href="#work" class="dl">Experience</a></li>
+    <li><a href="#samples" class="dl">Evaluations</a></li>
+    <li><a href="#projects" class="dl">Projects</a></li>
+    <li><a href="#contact" class="dl">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge fu">✦ Available for contract work · AI Evaluation & QA</div>
+      <h1 class="hero-name fu" style="transition-delay:.05s">Chinua Okagbue</h1>
+      <div class="hero-roles fu" style="transition-delay:.1s">
+        <span class="hero-role-pill">AI Data Evaluator</span>
+        <span class="hero-role-pill">Frontend QA Specialist</span>
+        <span class="hero-role-pill">Multimodal Reviewer</span>
+      </div>
+      <p class="hero-desc fu" style="transition-delay:.14s">
+        Computer Science graduate with 4+ years of experience in LLM response review, structured annotation, and frontend quality assurance. Proven accuracy across high-volume evaluation workflows.
+      </p>
+      <div class="hero-ctas fu" style="transition-delay:.18s">
+        <a href="#contact" class="btn btn-primary">✉ Get in touch</a>
+        <a href="#samples" class="btn btn-secondary">View evaluation samples →</a>
+      </div>
+      <div class="hero-stats fu" style="transition-delay:.22s">
+        <div class="stat-item"><span class="stat-val">4+</span><span class="stat-lbl">Years Exp.</span></div>
+        <div class="stat-item"><span class="stat-val">3</span><span class="stat-lbl">AI Platforms</span></div>
+        <div class="stat-item"><span class="stat-val">2k+</span><span class="stat-lbl">Tasks Reviewed</span></div>
+        <div class="stat-item"><span class="stat-val">100%</span><span class="stat-lbl">Remote</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="sec-tag fu">Competencies</div>
+    <h2 class="sec-title fu">Technical & evaluation toolkit</h2>
+    <p class="sec-desc fu">Structured annotation, LLM evaluation, frontend QA, and media review capabilities.</p>
+    <div class="skills-grid">
+      <div class="skill-card fu">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-title">AI Evaluation</div>
+        <div class="skill-tags"><span>LLM Response Review</span><span>Prompt Evaluation</span><span>Structured Annotation</span><span>Fact-Checking</span><span>Citation Review</span></div>
+      </div>
+      <div class="skill-card fu" style="transition-delay:.05s">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-title">Frontend & Engineering</div>
+        <div class="skill-tags"><span>HTML5 / CSS3</span><span>JavaScript</span><span>Responsive QA</span><span>WCAG Accessibility</span><span>Git</span><span>Figma</span></div>
+      </div>
+      <div class="skill-card fu" style="transition-delay:.1s">
+        <div class="skill-icon">🎬</div>
+        <div class="skill-title">Media & Production</div>
+        <div class="skill-tags"><span>Adobe Premiere Pro</span><span>DaVinci Resolve</span><span>After Effects</span><span>CapCut</span></div>
+      </div>
+      <div class="skill-card fu" style="transition-delay:.15s">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-title">Automation & Systems</div>
+        <div class="skill-tags"><span>AI Content Pipelines</span><span>Text-to-Video</span><span>SEO & Metadata</span></div>
+      </div>
+      <div class="skill-card fu" style="transition-delay:.2s">
+        <div class="skill-icon">📝</div>
+        <div class="skill-title">Professional Skills</div>
+        <div class="skill-tags"><span>Technical Writing</span><span>Analytical Review</span><span>Documentation</span><span>Remote Collaboration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="work">
+  <div class="container">
+    <div class="sec-tag fu">Work History</div>
+    <h2 class="sec-title fu">Contract & freelance experience</h2>
+    <p class="sec-desc fu">Specialist work across three AI platforms and independent frontend QA.</p>
+    <div class="timeline">
+      <div class="tl-item fu">
+        <div class="tl-dot"></div>
+        <div class="tl-period">June 2024 – Present</div>
+        <div class="tl-role">AI Data Annotation & Software Evaluation Specialist</div>
+        <div class="tl-org">DataAnnotation.tech</div>
+        <ul class="tl-list">
+          <li>Evaluated AI-generated code, frontend outputs, and written responses against structured annotation guidelines.</li>
+          <li>Produced citation-supported assessments to improve consistency and reduce scoring ambiguity.</li>
+          <li>Reviewed responsive layouts, UI behaviours, and frontend implementation quality.</li>
+          <li>Maintained strong task accuracy while working independently under deadline-driven cycles.</li>
+        </ul>
+      </div>
+      <div class="tl-item fu" style="transition-delay:.07s">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Oct 2023 – May 2024</div>
+        <div class="tl-role">Multimodal AI Data Reviewer</div>
+        <div class="tl-org">Outlier AI</div>
+        <ul class="tl-list">
+          <li>Reviewed and rated AI-generated multimedia including text-to-video, synthetic voiceovers, and scripts.</li>
+          <li>Identified recurring quality issues like visual artifacts and timing inconsistencies.</li>
+          <li>Produced detailed quality reports summarising model weaknesses across task types.</li>
+          <li>Contributed to large-scale media evaluation workflows.</li>
+        </ul>
+      </div>
+      <div class="tl-item fu" style="transition-delay:.14s">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Mar 2022 – Sep 2023</div>
+        <div class="tl-role">Technical AI Tutor & AI Content Evaluator</div>
+        <div class="tl-org">Mindrift</div>
+        <ul class="tl-list">
+          <li>Evaluated AI-generated responses for factual accuracy, logical consistency, and clarity.</li>
+          <li>Produced annotated feedback and structured assessments across technical writing tasks.</li>
+          <li>Authored training materials used in AI fine-tuning and evaluation workflows.</li>
+        </ul>
+      </div>
+      <div class="tl-item fu" style="transition-delay:.21s">
+        <div class="tl-dot"></div>
+        <div class="tl-period">May 2024 – Present</div>
+        <div class="tl-role">Frontend Engineer & UI/UX Developer</div>
+        <div class="tl-org">Freelance</div>
+        <ul class="tl-list">
+          <li>Designed responsive web applications for independent clients.</li>
+          <li>Conducted frontend QA testing, interface reviews, and cross-platform debugging.</li>
+          <li>Produced technical documentation and structured project reports.</li>
+        </ul>
+      </div>
+      <div class="tl-item fu" style="transition-delay:.28s">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Mar 2022 – May 2024</div>
+        <div class="tl-role">Digital Media Automation Specialist</div>
+        <div class="tl-org">Independent</div>
+        <ul class="tl-list">
+          <li>Built AI-assisted YouTube content production workflows with automated scripting and text-to-video.</li>
+          <li>Managed quality control for generated scripts, visuals, audio, and publishing assets.</li>
+          <li>Edited digital media using professional post-production software.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVALUATION SAMPLES -->
+<section id="samples">
+  <div class="container">
+    <div class="sec-tag fu">Work Samples</div>
+    <h2 class="sec-title fu">Real evaluation snapshots</h2>
+    <p class="sec-desc fu">Structured assessments across code review, frontend QA, and multimedia classification.</p>
+    <div class="tabs fu">
+      <button class="tab active" data-tab="ai">AI Response Review</button>
+      <button class="tab" data-tab="qa">Frontend QA</button>
+      <button class="tab" data-tab="mm">Multimedia Evaluation</button>
+    </div>
+
+    <div class="samples-panel active" id="tab-ai">
+      <div class="eval-card fu">
+        <div class="eval-bar">
+          <span class="eval-task-lbl">Task · Code Explanation Review</span>
+          <span class="eval-score s-warn">7.5 / 10</span>
+        </div>
+        <div class="eval-body">
+          <div class="eval-title">AI-generated async/await explanation for junior developers</div>
+          <div class="issues-label">Detected Issues</div>
+          <ul class="issues-list">
+            <li class="sev-h"><span class="sev h">HIGH</span>Missing edge-case handling — concurrent rejection not addressed</li>
+            <li class="sev-m"><span class="sev m">MED</span>Weak accessibility context — no ARIA discussion in UI examples</li>
+            <li class="sev-l"><span class="sev l">LOW</span>Optimization guidance lacks production-level specificity</li>
+          </ul>
+          <div class="eval-summary">Technically correct for basic usage but lacks the depth required at production implementation level. A junior developer following this explanation would encounter unhandled failure scenarios at scale.</div>
+        </div>
+        <div class="eval-foot"><a href="#" class="link-cta">View Full Report →</a></div>
+      </div>
+      <div class="eval-card fu" style="transition-delay:.06s">
+        <div class="eval-bar">
+          <span class="eval-task-lbl">Task · Factual Accuracy Assessment</span>
+          <span class="eval-score s-fail">5.0 / 10</span>
+        </div>
+        <div class="eval-body">
+          <div class="eval-title">Medical statistics query — AI response assessment</div>
+          <div class="issues-label">Detected Issues</div>
+          <ul class="issues-list">
+            <li class="sev-h"><span class="sev h">HIGH</span>Outdated 2017 study cited as current evidence without qualification</li>
+            <li class="sev-h"><span class="sev h">HIGH</span>Reversed causation relationship in primary data point</li>
+            <li class="sev-m"><span class="sev m">MED</span>No confidence qualifier applied to contested statistical claims</li>
+          </ul>
+          <div class="eval-summary">Contains factual inaccuracies that would be harmful if acted upon in a clinical context. Flagged for model retraining with annotated corrections. Recommendation: Reject.</div>
+        </div>
+        <div class="eval-foot"><a href="#" class="link-cta">View Full Report →</a></div>
+      </div>
+    </div>
+
+    <div class="samples-panel" id="tab-qa">
+      <div class="eval-card fu">
+        <div class="eval-bar">
+          <span class="eval-task-lbl">Task · Responsive Layout Audit — 375px viewport</span>
+          <span class="eval-score s-fail">FAIL</span>
+        </div>
+        <div class="eval-body">
+          <div class="eval-title">SaaS dashboard component — mobile viewport QA review</div>
+          <div class="issues-label">Detected Issues</div>
+          <ul class="issues-list">
+            <li class="sev-h"><span class="sev h">HIGH</span>Nav overflow at 375px — items clipped with no scroll fallback</li>
+            <li class="sev-h"><span class="sev h">HIGH</span>Primary CTA touch targets below 44×44px WCAG minimum</li>
+            <li class="sev-m"><span class="sev m">MED</span>Secondary label contrast ratio 3.8:1 — fails WCAG AA (4.5:1 required)</li>
+          </ul>
+          <div class="eval-summary">Three critical failures — not production-ready for mobile deployment. Two issues constitute WCAG accessibility violations that create legal exposure in regulated markets.</div>
+        </div>
+        <div class="eval-foot"><a href="#" class="link-cta">View Full Report →</a></div>
+      </div>
+    </div>
+
+    <div class="samples-panel" id="tab-mm">
+      <div class="eval-card fu">
+        <div class="eval-bar">
+          <span class="eval-task-lbl">Task · Image Authenticity Classification</span>
+          <span class="eval-score s-flag">AI-GENERATED</span>
+        </div>
+        <div class="eval-body">
+          <div class="eval-title">Portrait classification — synthetic vs. authentic photograph</div>
+          <div class="issues-label">Detection Indicators</div>
+          <ul class="issues-list">
+            <li class="sev-h"><span class="sev h">CRIT</span>Inconsistent specular highlights — lighting direction conflicts detected</li>
+            <li class="sev-m"><span class="sev m">MOD</span>Background text artifacts — illegible glyphs consistent with diffusion models</li>
+            <li class="sev-l"><span class="sev l">LOW</span>Facial asymmetry exceeds natural human variation threshold</li>
+          </ul>
+          <div class="eval-summary">High-confidence classification (92%) as AI-generated. Artifact patterns align with latent diffusion model outputs. Flagged for metadata cross-verification. Classification: SYNTHETIC.</div>
+        </div>
+        <div class="eval-foot"><a href="#" class="link-cta">View Full Report →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-tag fu">Case Studies</div>
+    <h2 class="sec-title fu">QA & analysis projects</h2>
+    <p class="sec-desc fu">Independent audits and structured evaluation projects.</p>
+    <div class="projects-grid">
+      <div class="proj-card fu">
+        <div class="proj-thumb">📊<span class="proj-thumb-tag">Case Study</span></div>
+        <div class="proj-body">
+          <div class="proj-title">Frontend QA Audit — SaaS Dashboard</div>
+          <div class="proj-desc">14 responsive issues across 3 breakpoints, 8 WCAG violations documented with remediation notes and severity classification.</div>
+          <a href="#" class="link-cta">Read case study →</a>
+        </div>
+      </div>
+      <div class="proj-card fu" style="transition-delay:.06s">
+        <div class="proj-thumb">🤖<span class="proj-thumb-tag">Analysis</span></div>
+        <div class="proj-body">
+          <div class="proj-title">LLM Response Quality Analysis</div>
+          <div class="proj-desc">200 responses scored across 8 task types. Identified systemic accuracy gaps in numerical reasoning tasks.</div>
+          <a href="#" class="link-cta">Read case study →</a>
+        </div>
+      </div>
+      <div class="proj-card fu" style="transition-delay:.12s">
+        <div class="proj-thumb">🎥<span class="proj-thumb-tag">Workflow</span></div>
+        <div class="proj-body">
+          <div class="proj-title">Multimodal Review Pipeline</div>
+          <div class="proj-desc">Designed quality control workflow for AI-generated video and synthetic voiceover evaluation at scale.</div>
+          <a href="#" class="link-cta">View workflow →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="container">
+    <div class="sec-tag fu">Process</div>
+    <h2 class="sec-title fu">Evaluation workflow</h2>
+    <p class="sec-desc fu">The consistent methodology I apply to every review engagement.</p>
+    <div class="workflow">
+      <div class="wf-step fu">
+        <div class="wf-n-wrap"><div class="wf-n">01</div></div>
+        <div class="wf-body">
+          <div class="wf-title">Review Guidelines</div>
+          <p class="wf-desc">Study the task rubric, scoring criteria, and domain-specific guidelines thoroughly before beginning any review.</p>
+        </div>
+      </div>
+      <div class="wf-step fu" style="transition-delay:.06s">
+        <div class="wf-n-wrap"><div class="wf-n">02</div></div>
+        <div class="wf-body">
+          <div class="wf-title">Analyze Outputs</div>
+          <p class="wf-desc">Fully read or inspect the submitted output — code, prose, image, or UI — without premature scoring decisions.</p>
+        </div>
+      </div>
+      <div class="wf-step fu" style="transition-delay:.12s">
+        <div class="wf-n-wrap"><div class="wf-n">03</div></div>
+        <div class="wf-body">
+          <div class="wf-title">Identify Errors</div>
+          <p class="wf-desc">Catalog factual, structural, and quality issues with precise references, categorized by type and severity.</p>
+        </div>
+      </div>
+      <div class="wf-step fu" style="transition-delay:.18s">
+        <div class="wf-n-wrap"><div class="wf-n">04</div></div>
+        <div class="wf-body">
+          <div class="wf-title">Document Findings</div>
+          <p class="wf-desc">Write structured rationale for each issue — precise enough to withstand independent review.</p>
+        </div>
+      </div>
+      <div class="wf-step fu" style="transition-delay:.24s">
+        <div class="wf-n-wrap"><div class="wf-n">05</div></div>
+        <div class="wf-body">
+          <div class="wf-title">Deliver Structured Assessment</div>
+          <p class="wf-desc">Submit calibrated score with documented evidence, formatted to platform or client specification.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION + CERTS -->
+<section id="edu">
+  <div class="container">
+    <div class="sec-tag fu">Credentials</div>
+    <h2 class="sec-title fu">Education & certifications</h2>
+    <p class="sec-desc fu">Academic background and professional credentials.</p>
+    <div class="info-grid">
+      <div class="info-card fu">
+        <div class="info-card-title">Education</div>
+        <div class="edu-degree">BSc Computer Science</div>
+        <div class="edu-sub">University of London — Worldwide Programme</div>
+        <div class="edu-period">2019 – 2023</div>
+        <p class="edu-note">Core focus: software engineering, data structures, AI fundamentals.</p>
+      </div>
+      <div class="info-card fu" style="transition-delay:.07s">
+        <div class="info-card-title">Certifications</div>
+        <ul class="cert-list">
+          <li class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Meta Frontend Developer Certificate</div>
+              <div class="cert-issuer">Meta · Coursera · 2023</div>
+            </div>
+          </li>
+          <li class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Google UX Design Certificate</div>
+              <div class="cert-issuer">Google · Coursera · 2022</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-box fu">
+      <h2 class="contact-title">Ready to improve your AI quality?</h2>
+      <p class="contact-sub">Open for contract work in AI evaluation, frontend QA, and annotation workflows. Response within 24h.</p>
+      <div class="contact-links">
+        <a href="mailto:chinuaokagbue@gmail.com" class="contact-link">
+          <span class="cl-ico">✉</span>
+          chinuaokagbue@gmail.com
+          <span class="cl-meta">Email</span>
+        </a>
+        <a href="https://www.linkedin.com/in/chinua-okagbue-455410411" class="contact-link">
+          <span class="cl-ico">in</span>
+          linkedin.com/in/chinua-okagbue-455410411
+          <span class="cl-meta">LinkedIn</span>
+        </a>
+        <a href="https://www.linkedin.com/in/chinua-okagbue-455410411" class="contact-link">
+          <span class="cl-ico">↓</span>
+          Download Resume
+          <span class="cl-meta">PDF</span>
+        </a>
+      </div>
+      <a href="mailto:chinuaokagbue@gmail.com" class="btn btn-primary">✉ Send Message</a>
+      <div class="contact-location" style="margin-top:16px">📍 Remote · Available worldwide</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Chinua Okagbue — AI Data Evaluator & Frontend QA Specialist</p>
+</footer>
+
+<script>
+// navbar scroll
+const nb = document.getElementById('navbar');
+window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 10));
+
+// hamburger
+const ham = document.getElementById('ham');
+const drawer = document.getElementById('drawer');
+ham.addEventListener('click', () => drawer.classList.toggle('open'));
+document.querySelectorAll('.dl').forEach(l => l.addEventListener('click', () => drawer.classList.remove('open')));
+
+// tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.samples-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// scroll reveal
+const io = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.fu').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
