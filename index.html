@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -205,7 +206,8 @@ p.sec-desc{
   transition:border-color .2s,transform .2s;
 }
 .skill-card:hover{border-color:var(--border-2);transform:translateY(-2px)}
-.skill-icon{font-size:20px;margin-bottom:14px}
+.skill-icon{width:32px;height:32px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;background:rgba(59,130,246,.1);border:1px solid var(--accent-brd);border-radius:7px;padding:6px;flex-shrink:0}
+.skill-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.75;fill:none}
 .skill-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px}
 .skill-tags{display:flex;flex-wrap:wrap;gap:6px}
 .skill-tags span{
@@ -340,8 +342,9 @@ p.sec-desc{
     -45deg,var(--bg-2) 0,var(--bg-2) 1px,transparent 1px,transparent 14px
   );
   display:flex;align-items:center;justify-content:center;
-  font-size:28px;border-bottom:1px solid var(--border);position:relative;
+  border-bottom:1px solid var(--border);position:relative;
 }
+.proj-thumb svg{width:36px;height:36px;stroke:var(--text-3);stroke-width:1.25;fill:none;opacity:.6}
 .proj-thumb-tag{
   position:absolute;top:10px;left:10px;
   font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
@@ -394,8 +397,9 @@ p.sec-desc{
   width:34px;height:34px;border-radius:7px;
   background:rgba(59,130,246,.1);border:1px solid var(--accent-brd);
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0;
+  flex-shrink:0;
 }
+.cert-icon svg{width:17px;height:17px;stroke:var(--accent);stroke-width:1.75;fill:none}
 .cert-name{font-size:13.5px;font-weight:600;color:var(--text)}
 .cert-issuer{font-size:11.5px;color:var(--text-3);margin-top:2px}
 
@@ -430,7 +434,8 @@ p.sec-desc{
   transition:border-color .15s,color .15s;font-size:13.5px;
 }
 .contact-link:hover{border-color:var(--border-2);color:var(--text)}
-.cl-ico{color:var(--accent);font-size:14px;width:20px;text-align:center}
+.cl-ico{color:var(--accent);width:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cl-ico svg{width:16px;height:16px;stroke:var(--accent);stroke-width:1.75;fill:none}
 .cl-meta{font-size:11px;color:var(--text-3);margin-left:auto;text-transform:uppercase;letter-spacing:.05em}
 .contact-location{
   font-size:12px;color:var(--text-3);position:relative;
@@ -497,7 +502,7 @@ footer p{font-size:12px;color:var(--text-3)}
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
-      <div class="hero-badge fu">✦ Available for contract work · AI Evaluation & QA</div>
+      <div class="hero-badge fu"><i data-lucide="circle-dot" style="width:12px;height:12px;stroke:var(--green);stroke-width:2;margin-right:2px"></i> Available for contract work · AI Evaluation & QA</div>
       <h1 class="hero-name fu" style="transition-delay:.05s">Chinua Okagbue</h1>
       <div class="hero-roles fu" style="transition-delay:.1s">
         <span class="hero-role-pill">AI Data Evaluator</span>
@@ -508,7 +513,7 @@ footer p{font-size:12px;color:var(--text-3)}
         Computer Science graduate with 4+ years of experience in LLM response review, structured annotation, and frontend quality assurance. Proven accuracy across high-volume evaluation workflows.
       </p>
       <div class="hero-ctas fu" style="transition-delay:.18s">
-        <a href="#contact" class="btn btn-primary">✉ Get in touch</a>
+        <a href="#contact" class="btn btn-primary"><i data-lucide="mail" style="width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none"></i> Get in touch</a>
         <a href="#samples" class="btn btn-secondary">View evaluation samples →</a>
       </div>
       <div class="hero-stats fu" style="transition-delay:.22s">
@@ -524,32 +529,32 @@ footer p{font-size:12px;color:var(--text-3)}
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <div class="sec-tag fu">Competencies</div>
+  <div class="sec-tag fu">Competencies</div>
     <h2 class="sec-title fu">Technical & evaluation toolkit</h2>
     <p class="sec-desc fu">Structured annotation, LLM evaluation, frontend QA, and media review capabilities.</p>
     <div class="skills-grid">
       <div class="skill-card fu">
-        <div class="skill-icon">🤖</div>
+        <div class="skill-icon"><i data-lucide="bot"></i></div>
         <div class="skill-title">AI Evaluation</div>
         <div class="skill-tags"><span>LLM Response Review</span><span>Prompt Evaluation</span><span>Structured Annotation</span><span>Fact-Checking</span><span>Citation Review</span></div>
       </div>
       <div class="skill-card fu" style="transition-delay:.05s">
-        <div class="skill-icon">🖥️</div>
+        <div class="skill-icon"><i data-lucide="monitor"></i></div>
         <div class="skill-title">Frontend & Engineering</div>
         <div class="skill-tags"><span>HTML5 / CSS3</span><span>JavaScript</span><span>Responsive QA</span><span>WCAG Accessibility</span><span>Git</span><span>Figma</span></div>
       </div>
       <div class="skill-card fu" style="transition-delay:.1s">
-        <div class="skill-icon">🎬</div>
+        <div class="skill-icon"><i data-lucide="film"></i></div>
         <div class="skill-title">Media & Production</div>
         <div class="skill-tags"><span>Adobe Premiere Pro</span><span>DaVinci Resolve</span><span>After Effects</span><span>CapCut</span></div>
       </div>
       <div class="skill-card fu" style="transition-delay:.15s">
-        <div class="skill-icon">⚙️</div>
+        <div class="skill-icon"><i data-lucide="cpu"></i></div>
         <div class="skill-title">Automation & Systems</div>
         <div class="skill-tags"><span>AI Content Pipelines</span><span>Text-to-Video</span><span>SEO & Metadata</span></div>
       </div>
       <div class="skill-card fu" style="transition-delay:.2s">
-        <div class="skill-icon">📝</div>
+        <div class="skill-icon"><i data-lucide="file-text"></i></div>
         <div class="skill-title">Professional Skills</div>
         <div class="skill-tags"><span>Technical Writing</span><span>Analytical Review</span><span>Documentation</span><span>Remote Collaboration</span></div>
       </div>
@@ -724,7 +729,7 @@ footer p{font-size:12px;color:var(--text-3)}
     <p class="sec-desc fu">Independent audits and structured evaluation projects.</p>
     <div class="projects-grid">
       <div class="proj-card fu">
-        <div class="proj-thumb">📊<span class="proj-thumb-tag">Case Study</span></div>
+        <div class="proj-thumb"><i data-lucide="bar-chart-2"></i><span class="proj-thumb-tag">Case Study</span></div>
         <div class="proj-body">
           <div class="proj-title">Frontend QA Audit — SaaS Dashboard</div>
           <div class="proj-desc">14 responsive issues across 3 breakpoints, 8 WCAG violations documented with remediation notes and severity classification.</div>
@@ -732,7 +737,7 @@ footer p{font-size:12px;color:var(--text-3)}
         </div>
       </div>
       <div class="proj-card fu" style="transition-delay:.06s">
-        <div class="proj-thumb">🤖<span class="proj-thumb-tag">Analysis</span></div>
+        <div class="proj-thumb"><i data-lucide="brain-circuit"></i><span class="proj-thumb-tag">Analysis</span></div>
         <div class="proj-body">
           <div class="proj-title">LLM Response Quality Analysis</div>
           <div class="proj-desc">200 responses scored across 8 task types. Identified systemic accuracy gaps in numerical reasoning tasks.</div>
@@ -740,7 +745,7 @@ footer p{font-size:12px;color:var(--text-3)}
         </div>
       </div>
       <div class="proj-card fu" style="transition-delay:.12s">
-        <div class="proj-thumb">🎥<span class="proj-thumb-tag">Workflow</span></div>
+        <div class="proj-thumb"><i data-lucide="video"></i><span class="proj-thumb-tag">Workflow</span></div>
         <div class="proj-body">
           <div class="proj-title">Multimodal Review Pipeline</div>
           <div class="proj-desc">Designed quality control workflow for AI-generated video and synthetic voiceover evaluation at scale.</div>
@@ -815,14 +820,14 @@ footer p{font-size:12px;color:var(--text-3)}
         <div class="info-card-title">Certifications</div>
         <ul class="cert-list">
           <li class="cert-item">
-            <div class="cert-icon">🏅</div>
+            <div class="cert-icon"><i data-lucide="award"></i></div>
             <div>
               <div class="cert-name">Meta Frontend Developer Certificate</div>
               <div class="cert-issuer">Meta · Coursera · 2023</div>
             </div>
           </li>
           <li class="cert-item">
-            <div class="cert-icon">🏅</div>
+            <div class="cert-icon"><i data-lucide="award"></i></div>
             <div>
               <div class="cert-name">Google UX Design Certificate</div>
               <div class="cert-issuer">Google · Coursera · 2022</div>
@@ -842,23 +847,23 @@ footer p{font-size:12px;color:var(--text-3)}
       <p class="contact-sub">Open for contract work in AI evaluation, frontend QA, and annotation workflows. Response within 24h.</p>
       <div class="contact-links">
         <a href="mailto:chinuaokagbue@gmail.com" class="contact-link">
-          <span class="cl-ico">✉</span>
+          <span class="cl-ico"><i data-lucide="mail"></i></span>
           chinuaokagbue@gmail.com
           <span class="cl-meta">Email</span>
         </a>
         <a href="https://www.linkedin.com/in/chinua-okagbue-455410411" class="contact-link">
-          <span class="cl-ico">in</span>
+          <span class="cl-ico"><i data-lucide="linkedin"></i></span>
           linkedin.com/in/chinua-okagbue-455410411
           <span class="cl-meta">LinkedIn</span>
         </a>
         <a href="https://www.linkedin.com/in/chinua-okagbue-455410411" class="contact-link">
-          <span class="cl-ico">↓</span>
+          <span class="cl-ico"><i data-lucide="download"></i></span>
           Download Resume
           <span class="cl-meta">PDF</span>
         </a>
       </div>
-      <a href="mailto:chinuaokagbue@gmail.com" class="btn btn-primary">✉ Send Message</a>
-      <div class="contact-location" style="margin-top:16px">📍 Remote · Available worldwide</div>
+      <a href="mailto:chinuaokagbue@gmail.com" class="btn btn-primary"><i data-lucide="send" style="width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none"></i> Send Message</a>
+      <div class="contact-location" style="margin-top:16px"><i data-lucide="map-pin" style="width:13px;height:13px;stroke:var(--text-3);stroke-width:1.75;fill:none"></i> Remote · Available worldwide</div>
     </div>
   </div>
 </section>
@@ -894,6 +899,9 @@ const io = new IntersectionObserver(
   { threshold: 0.1 }
 );
 document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+// init lucide icons
+lucide.createIcons();
 </script>
 </body>
 </html>
